@@ -1,0 +1,6234 @@
+openapi: 3.1.0
+info:
+  title: My awesome API
+  version: 0.5.0
+  description: My awesome API created with ZenStack
+  summary: Created with ZenStack
+tags:
+  - name: post
+    description: Post operations
+  - name: account
+    description: Account operations
+  - name: session
+    description: Session operations
+  - name: user
+    description: User operations
+  - name: verificationToken
+    description: VerificationToken operations
+components:
+  schemas:
+    AccountScalarFieldEnum:
+      type: string
+      enum:
+        - id
+        - userId
+        - type
+        - provider
+        - providerAccountId
+        - refresh_token
+        - access_token
+        - expires_at
+        - token_type
+        - scope
+        - id_token
+        - session_state
+    PostScalarFieldEnum:
+      type: string
+      enum:
+        - id
+        - title
+        - content
+    QueryMode:
+      type: string
+      enum:
+        - default
+        - insensitive
+    SessionScalarFieldEnum:
+      type: string
+      enum:
+        - id
+        - sessionToken
+        - userId
+        - expires
+    SortOrder:
+      type: string
+      enum:
+        - asc
+        - desc
+    UserScalarFieldEnum:
+      type: string
+      enum:
+        - id
+        - name
+        - email
+        - emailVerified
+        - image
+    VerificationTokenScalarFieldEnum:
+      type: string
+      enum:
+        - identifier
+        - token
+        - expires
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - id
+        - title
+        - content
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        type:
+          type: string
+        provider:
+          type: string
+        providerAccountId:
+          type: string
+        refresh_token:
+          type: string
+        access_token:
+          type: string
+        expires_at:
+          type: integer
+        token_type:
+          type: string
+        scope:
+          type: string
+        id_token:
+          type: string
+        session_state:
+          type: string
+        user:
+          $ref: "#/components/schemas/User"
+      required:
+        - id
+        - userId
+        - type
+        - provider
+        - providerAccountId
+        - user
+    Session:
+      type: object
+      properties:
+        id:
+          type: string
+        sessionToken:
+          type: string
+        userId:
+          type: string
+        expires:
+          type: string
+          format: date-time
+        user:
+          $ref: "#/components/schemas/User"
+      required:
+        - id
+        - sessionToken
+        - userId
+        - expires
+        - user
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        emailVerified:
+          type: string
+          format: date-time
+        image:
+          type: string
+        accounts:
+          type: array
+          items:
+            $ref: "#/components/schemas/Account"
+        sessions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Session"
+      required:
+        - id
+    VerificationToken:
+      type: object
+      properties:
+        identifier:
+          type: string
+        token:
+          type: string
+        expires:
+          type: string
+          format: date-time
+      required:
+        - identifier
+        - token
+        - expires
+    PostWhereInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/PostWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/PostWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostWhereInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        title:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        content:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+    PostOrderByWithRelationInput:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/SortOrder"
+        title:
+          $ref: "#/components/schemas/SortOrder"
+        content:
+          $ref: "#/components/schemas/SortOrder"
+    PostWhereUniqueInput:
+      type: object
+      properties:
+        id:
+          type: string
+    PostScalarWhereWithAggregatesInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/PostScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostScalarWhereWithAggregatesInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/PostScalarWhereWithAggregatesInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/PostScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/PostScalarWhereWithAggregatesInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        title:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        content:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+    AccountWhereInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/AccountWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/AccountWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/AccountWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountWhereInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        userId:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        type:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        provider:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        providerAccountId:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        refresh_token:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+        access_token:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+        expires_at:
+          oneOf:
+            - $ref: "#/components/schemas/IntNullableFilter"
+            - type: integer
+        token_type:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+        scope:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+        id_token:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+        session_state:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+        user:
+          oneOf:
+            - $ref: "#/components/schemas/UserRelationFilter"
+            - $ref: "#/components/schemas/UserWhereInput"
+    AccountOrderByWithRelationInput:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/SortOrder"
+        userId:
+          $ref: "#/components/schemas/SortOrder"
+        type:
+          $ref: "#/components/schemas/SortOrder"
+        provider:
+          $ref: "#/components/schemas/SortOrder"
+        providerAccountId:
+          $ref: "#/components/schemas/SortOrder"
+        refresh_token:
+          $ref: "#/components/schemas/SortOrder"
+        access_token:
+          $ref: "#/components/schemas/SortOrder"
+        expires_at:
+          $ref: "#/components/schemas/SortOrder"
+        token_type:
+          $ref: "#/components/schemas/SortOrder"
+        scope:
+          $ref: "#/components/schemas/SortOrder"
+        id_token:
+          $ref: "#/components/schemas/SortOrder"
+        session_state:
+          $ref: "#/components/schemas/SortOrder"
+        user:
+          $ref: "#/components/schemas/UserOrderByWithRelationInput"
+    AccountWhereUniqueInput:
+      type: object
+      properties:
+        id:
+          type: string
+        provider_providerAccountId:
+          $ref: "#/components/schemas/AccountProviderProviderAccountIdCompoundUniqueInput"
+    AccountScalarWhereWithAggregatesInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/AccountScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountScalarWhereWithAggregatesInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/AccountScalarWhereWithAggregatesInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/AccountScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountScalarWhereWithAggregatesInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        userId:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        type:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        provider:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        providerAccountId:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        refresh_token:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableWithAggregatesFilter"
+            - type: string
+        access_token:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableWithAggregatesFilter"
+            - type: string
+        expires_at:
+          oneOf:
+            - $ref: "#/components/schemas/IntNullableWithAggregatesFilter"
+            - type: integer
+        token_type:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableWithAggregatesFilter"
+            - type: string
+        scope:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableWithAggregatesFilter"
+            - type: string
+        id_token:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableWithAggregatesFilter"
+            - type: string
+        session_state:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableWithAggregatesFilter"
+            - type: string
+    SessionWhereInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/SessionWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        sessionToken:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        userId:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        expires:
+          oneOf:
+            - $ref: "#/components/schemas/DateTimeFilter"
+            - type: string
+              format: date-time
+        user:
+          oneOf:
+            - $ref: "#/components/schemas/UserRelationFilter"
+            - $ref: "#/components/schemas/UserWhereInput"
+    SessionOrderByWithRelationInput:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/SortOrder"
+        sessionToken:
+          $ref: "#/components/schemas/SortOrder"
+        userId:
+          $ref: "#/components/schemas/SortOrder"
+        expires:
+          $ref: "#/components/schemas/SortOrder"
+        user:
+          $ref: "#/components/schemas/UserOrderByWithRelationInput"
+    SessionWhereUniqueInput:
+      type: object
+      properties:
+        id:
+          type: string
+        sessionToken:
+          type: string
+    SessionScalarWhereWithAggregatesInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/SessionScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionScalarWhereWithAggregatesInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/SessionScalarWhereWithAggregatesInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/SessionScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionScalarWhereWithAggregatesInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        sessionToken:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        userId:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        expires:
+          oneOf:
+            - $ref: "#/components/schemas/DateTimeWithAggregatesFilter"
+            - type: string
+              format: date-time
+    UserWhereInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/UserWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/UserWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/UserWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/UserWhereInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        name:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+        email:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+        emailVerified:
+          oneOf:
+            - $ref: "#/components/schemas/DateTimeNullableFilter"
+            - type: string
+              format: date-time
+        image:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+        accounts:
+          $ref: "#/components/schemas/AccountListRelationFilter"
+        sessions:
+          $ref: "#/components/schemas/SessionListRelationFilter"
+    UserOrderByWithRelationInput:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/SortOrder"
+        name:
+          $ref: "#/components/schemas/SortOrder"
+        email:
+          $ref: "#/components/schemas/SortOrder"
+        emailVerified:
+          $ref: "#/components/schemas/SortOrder"
+        image:
+          $ref: "#/components/schemas/SortOrder"
+        accounts:
+          $ref: "#/components/schemas/AccountOrderByRelationAggregateInput"
+        sessions:
+          $ref: "#/components/schemas/SessionOrderByRelationAggregateInput"
+    UserWhereUniqueInput:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+    UserScalarWhereWithAggregatesInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/UserScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/UserScalarWhereWithAggregatesInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserScalarWhereWithAggregatesInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/UserScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/UserScalarWhereWithAggregatesInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        name:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableWithAggregatesFilter"
+            - type: string
+        email:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableWithAggregatesFilter"
+            - type: string
+        emailVerified:
+          oneOf:
+            - $ref: "#/components/schemas/DateTimeNullableWithAggregatesFilter"
+            - type: string
+              format: date-time
+        image:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableWithAggregatesFilter"
+            - type: string
+    VerificationTokenWhereInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/VerificationTokenWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/VerificationTokenWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/VerificationTokenWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/VerificationTokenWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/VerificationTokenWhereInput"
+        identifier:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        token:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        expires:
+          oneOf:
+            - $ref: "#/components/schemas/DateTimeFilter"
+            - type: string
+              format: date-time
+    VerificationTokenOrderByWithRelationInput:
+      type: object
+      properties:
+        identifier:
+          $ref: "#/components/schemas/SortOrder"
+        token:
+          $ref: "#/components/schemas/SortOrder"
+        expires:
+          $ref: "#/components/schemas/SortOrder"
+    VerificationTokenWhereUniqueInput:
+      type: object
+      properties:
+        token:
+          type: string
+        identifier_token:
+          $ref: "#/components/schemas/VerificationTokenIdentifierTokenCompoundUniqueInput"
+    VerificationTokenScalarWhereWithAggregatesInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/VerificationTokenScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/VerificationTokenScalarWhereWithAggregatesInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/VerificationTokenScalarWhereWithAggregatesInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/VerificationTokenScalarWhereWithAggregatesInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/VerificationTokenScalarWhereWithAggregatesInput"
+        identifier:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        token:
+          oneOf:
+            - $ref: "#/components/schemas/StringWithAggregatesFilter"
+            - type: string
+        expires:
+          oneOf:
+            - $ref: "#/components/schemas/DateTimeWithAggregatesFilter"
+            - type: string
+              format: date-time
+    PostCreateInput:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - title
+        - content
+    PostUpdateInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        title:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        content:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+    PostCreateManyInput:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - title
+        - content
+    PostUpdateManyMutationInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        title:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        content:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+    AccountCreateInput:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        provider:
+          type: string
+        providerAccountId:
+          type: string
+        refresh_token:
+          type: string
+        access_token:
+          type: string
+        expires_at:
+          type: integer
+        token_type:
+          type: string
+        scope:
+          type: string
+        id_token:
+          type: string
+        session_state:
+          type: string
+        user:
+          $ref: "#/components/schemas/UserCreateNestedOneWithoutAccountsInput"
+      required:
+        - type
+        - provider
+        - providerAccountId
+        - user
+    AccountUpdateInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        type:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        provider:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        providerAccountId:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        refresh_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        access_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        expires_at:
+          oneOf:
+            - type: integer
+            - $ref: "#/components/schemas/NullableIntFieldUpdateOperationsInput"
+        token_type:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        scope:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        id_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        session_state:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        user:
+          $ref: "#/components/schemas/UserUpdateOneRequiredWithoutAccountsNestedInput"
+    AccountCreateManyInput:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        type:
+          type: string
+        provider:
+          type: string
+        providerAccountId:
+          type: string
+        refresh_token:
+          type: string
+        access_token:
+          type: string
+        expires_at:
+          type: integer
+        token_type:
+          type: string
+        scope:
+          type: string
+        id_token:
+          type: string
+        session_state:
+          type: string
+      required:
+        - userId
+        - type
+        - provider
+        - providerAccountId
+    AccountUpdateManyMutationInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        type:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        provider:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        providerAccountId:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        refresh_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        access_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        expires_at:
+          oneOf:
+            - type: integer
+            - $ref: "#/components/schemas/NullableIntFieldUpdateOperationsInput"
+        token_type:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        scope:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        id_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        session_state:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+    SessionCreateInput:
+      type: object
+      properties:
+        id:
+          type: string
+        sessionToken:
+          type: string
+        expires:
+          type: string
+          format: date-time
+        user:
+          $ref: "#/components/schemas/UserCreateNestedOneWithoutSessionsInput"
+      required:
+        - sessionToken
+        - expires
+        - user
+    SessionUpdateInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        sessionToken:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        expires:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/DateTimeFieldUpdateOperationsInput"
+        user:
+          $ref: "#/components/schemas/UserUpdateOneRequiredWithoutSessionsNestedInput"
+    SessionCreateManyInput:
+      type: object
+      properties:
+        id:
+          type: string
+        sessionToken:
+          type: string
+        userId:
+          type: string
+        expires:
+          type: string
+          format: date-time
+      required:
+        - sessionToken
+        - userId
+        - expires
+    SessionUpdateManyMutationInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        sessionToken:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        expires:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/DateTimeFieldUpdateOperationsInput"
+    UserCreateInput:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        emailVerified:
+          type: string
+          format: date-time
+        image:
+          type: string
+        accounts:
+          $ref: "#/components/schemas/AccountCreateNestedManyWithoutUserInput"
+        sessions:
+          $ref: "#/components/schemas/SessionCreateNestedManyWithoutUserInput"
+    UserUpdateInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        name:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        email:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        emailVerified:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NullableDateTimeFieldUpdateOperationsInput"
+        image:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        accounts:
+          $ref: "#/components/schemas/AccountUpdateManyWithoutUserNestedInput"
+        sessions:
+          $ref: "#/components/schemas/SessionUpdateManyWithoutUserNestedInput"
+    UserCreateManyInput:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        emailVerified:
+          type: string
+          format: date-time
+        image:
+          type: string
+    UserUpdateManyMutationInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        name:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        email:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        emailVerified:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NullableDateTimeFieldUpdateOperationsInput"
+        image:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+    VerificationTokenCreateInput:
+      type: object
+      properties:
+        identifier:
+          type: string
+        token:
+          type: string
+        expires:
+          type: string
+          format: date-time
+      required:
+        - identifier
+        - token
+        - expires
+    VerificationTokenUpdateInput:
+      type: object
+      properties:
+        identifier:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        expires:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/DateTimeFieldUpdateOperationsInput"
+    VerificationTokenCreateManyInput:
+      type: object
+      properties:
+        identifier:
+          type: string
+        token:
+          type: string
+        expires:
+          type: string
+          format: date-time
+      required:
+        - identifier
+        - token
+        - expires
+    VerificationTokenUpdateManyMutationInput:
+      type: object
+      properties:
+        identifier:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        expires:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/DateTimeFieldUpdateOperationsInput"
+    StringFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+        in:
+          type: array
+          items:
+            type: string
+        notIn:
+          type: array
+          items:
+            type: string
+        lt:
+          type: string
+        lte:
+          type: string
+        gt:
+          type: string
+        gte:
+          type: string
+        contains:
+          type: string
+        startsWith:
+          type: string
+        endsWith:
+          type: string
+        mode:
+          $ref: "#/components/schemas/QueryMode"
+        not:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NestedStringFilter"
+    StringWithAggregatesFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+        in:
+          type: array
+          items:
+            type: string
+        notIn:
+          type: array
+          items:
+            type: string
+        lt:
+          type: string
+        lte:
+          type: string
+        gt:
+          type: string
+        gte:
+          type: string
+        contains:
+          type: string
+        startsWith:
+          type: string
+        endsWith:
+          type: string
+        mode:
+          $ref: "#/components/schemas/QueryMode"
+        not:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NestedStringWithAggregatesFilter"
+        _count:
+          $ref: "#/components/schemas/NestedIntFilter"
+        _min:
+          $ref: "#/components/schemas/NestedStringFilter"
+        _max:
+          $ref: "#/components/schemas/NestedStringFilter"
+    StringNullableFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+        in:
+          type: array
+          items:
+            type: string
+        notIn:
+          type: array
+          items:
+            type: string
+        lt:
+          type: string
+        lte:
+          type: string
+        gt:
+          type: string
+        gte:
+          type: string
+        contains:
+          type: string
+        startsWith:
+          type: string
+        endsWith:
+          type: string
+        mode:
+          $ref: "#/components/schemas/QueryMode"
+        not:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NestedStringNullableFilter"
+    IntNullableFilter:
+      type: object
+      properties:
+        equals:
+          type: integer
+        in:
+          type: array
+          items:
+            type: integer
+        notIn:
+          type: array
+          items:
+            type: integer
+        lt:
+          type: integer
+        lte:
+          type: integer
+        gt:
+          type: integer
+        gte:
+          type: integer
+        not:
+          oneOf:
+            - type: integer
+            - $ref: "#/components/schemas/NestedIntNullableFilter"
+    UserRelationFilter:
+      type: object
+      properties:
+        is:
+          $ref: "#/components/schemas/UserWhereInput"
+        isNot:
+          $ref: "#/components/schemas/UserWhereInput"
+    AccountProviderProviderAccountIdCompoundUniqueInput:
+      type: object
+      properties:
+        provider:
+          type: string
+        providerAccountId:
+          type: string
+      required:
+        - provider
+        - providerAccountId
+    StringNullableWithAggregatesFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+        in:
+          type: array
+          items:
+            type: string
+        notIn:
+          type: array
+          items:
+            type: string
+        lt:
+          type: string
+        lte:
+          type: string
+        gt:
+          type: string
+        gte:
+          type: string
+        contains:
+          type: string
+        startsWith:
+          type: string
+        endsWith:
+          type: string
+        mode:
+          $ref: "#/components/schemas/QueryMode"
+        not:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NestedStringNullableWithAggregatesFilter"
+        _count:
+          $ref: "#/components/schemas/NestedIntNullableFilter"
+        _min:
+          $ref: "#/components/schemas/NestedStringNullableFilter"
+        _max:
+          $ref: "#/components/schemas/NestedStringNullableFilter"
+    IntNullableWithAggregatesFilter:
+      type: object
+      properties:
+        equals:
+          type: integer
+        in:
+          type: array
+          items:
+            type: integer
+        notIn:
+          type: array
+          items:
+            type: integer
+        lt:
+          type: integer
+        lte:
+          type: integer
+        gt:
+          type: integer
+        gte:
+          type: integer
+        not:
+          oneOf:
+            - type: integer
+            - $ref: "#/components/schemas/NestedIntNullableWithAggregatesFilter"
+        _count:
+          $ref: "#/components/schemas/NestedIntNullableFilter"
+        _avg:
+          $ref: "#/components/schemas/NestedFloatNullableFilter"
+        _sum:
+          $ref: "#/components/schemas/NestedIntNullableFilter"
+        _min:
+          $ref: "#/components/schemas/NestedIntNullableFilter"
+        _max:
+          $ref: "#/components/schemas/NestedIntNullableFilter"
+    DateTimeFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+          format: date-time
+        in:
+          type: array
+          items:
+            type: string
+            format: date-time
+        notIn:
+          type: array
+          items:
+            type: string
+            format: date-time
+        lt:
+          type: string
+          format: date-time
+        lte:
+          type: string
+          format: date-time
+        gt:
+          type: string
+          format: date-time
+        gte:
+          type: string
+          format: date-time
+        not:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NestedDateTimeFilter"
+    DateTimeWithAggregatesFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+          format: date-time
+        in:
+          type: array
+          items:
+            type: string
+            format: date-time
+        notIn:
+          type: array
+          items:
+            type: string
+            format: date-time
+        lt:
+          type: string
+          format: date-time
+        lte:
+          type: string
+          format: date-time
+        gt:
+          type: string
+          format: date-time
+        gte:
+          type: string
+          format: date-time
+        not:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NestedDateTimeWithAggregatesFilter"
+        _count:
+          $ref: "#/components/schemas/NestedIntFilter"
+        _min:
+          $ref: "#/components/schemas/NestedDateTimeFilter"
+        _max:
+          $ref: "#/components/schemas/NestedDateTimeFilter"
+    DateTimeNullableFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+          format: date-time
+        in:
+          type: array
+          items:
+            type: string
+            format: date-time
+        notIn:
+          type: array
+          items:
+            type: string
+            format: date-time
+        lt:
+          type: string
+          format: date-time
+        lte:
+          type: string
+          format: date-time
+        gt:
+          type: string
+          format: date-time
+        gte:
+          type: string
+          format: date-time
+        not:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NestedDateTimeNullableFilter"
+    AccountListRelationFilter:
+      type: object
+      properties:
+        every:
+          $ref: "#/components/schemas/AccountWhereInput"
+        some:
+          $ref: "#/components/schemas/AccountWhereInput"
+        none:
+          $ref: "#/components/schemas/AccountWhereInput"
+    SessionListRelationFilter:
+      type: object
+      properties:
+        every:
+          $ref: "#/components/schemas/SessionWhereInput"
+        some:
+          $ref: "#/components/schemas/SessionWhereInput"
+        none:
+          $ref: "#/components/schemas/SessionWhereInput"
+    AccountOrderByRelationAggregateInput:
+      type: object
+      properties:
+        _count:
+          $ref: "#/components/schemas/SortOrder"
+    SessionOrderByRelationAggregateInput:
+      type: object
+      properties:
+        _count:
+          $ref: "#/components/schemas/SortOrder"
+    DateTimeNullableWithAggregatesFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+          format: date-time
+        in:
+          type: array
+          items:
+            type: string
+            format: date-time
+        notIn:
+          type: array
+          items:
+            type: string
+            format: date-time
+        lt:
+          type: string
+          format: date-time
+        lte:
+          type: string
+          format: date-time
+        gt:
+          type: string
+          format: date-time
+        gte:
+          type: string
+          format: date-time
+        not:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NestedDateTimeNullableWithAggregatesFilter"
+        _count:
+          $ref: "#/components/schemas/NestedIntNullableFilter"
+        _min:
+          $ref: "#/components/schemas/NestedDateTimeNullableFilter"
+        _max:
+          $ref: "#/components/schemas/NestedDateTimeNullableFilter"
+    VerificationTokenIdentifierTokenCompoundUniqueInput:
+      type: object
+      properties:
+        identifier:
+          type: string
+        token:
+          type: string
+      required:
+        - identifier
+        - token
+    StringFieldUpdateOperationsInput:
+      type: object
+      properties:
+        set:
+          type: string
+    UserCreateNestedOneWithoutAccountsInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutAccountsInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutAccountsInput"
+        connectOrCreate:
+          $ref: "#/components/schemas/UserCreateOrConnectWithoutAccountsInput"
+        connect:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+    NullableStringFieldUpdateOperationsInput:
+      type: object
+      properties:
+        set:
+          type: string
+    NullableIntFieldUpdateOperationsInput:
+      type: object
+      properties:
+        set:
+          type: integer
+        increment:
+          type: integer
+        decrement:
+          type: integer
+        multiply:
+          type: integer
+        divide:
+          type: integer
+    UserUpdateOneRequiredWithoutAccountsNestedInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutAccountsInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutAccountsInput"
+        connectOrCreate:
+          $ref: "#/components/schemas/UserCreateOrConnectWithoutAccountsInput"
+        upsert:
+          $ref: "#/components/schemas/UserUpsertWithoutAccountsInput"
+        connect:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/UserUpdateWithoutAccountsInput"
+            - $ref: "#/components/schemas/UserUncheckedUpdateWithoutAccountsInput"
+    UserCreateNestedOneWithoutSessionsInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutSessionsInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutSessionsInput"
+        connectOrCreate:
+          $ref: "#/components/schemas/UserCreateOrConnectWithoutSessionsInput"
+        connect:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+    DateTimeFieldUpdateOperationsInput:
+      type: object
+      properties:
+        set:
+          type: string
+          format: date-time
+    UserUpdateOneRequiredWithoutSessionsNestedInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutSessionsInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutSessionsInput"
+        connectOrCreate:
+          $ref: "#/components/schemas/UserCreateOrConnectWithoutSessionsInput"
+        upsert:
+          $ref: "#/components/schemas/UserUpsertWithoutSessionsInput"
+        connect:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/UserUpdateWithoutSessionsInput"
+            - $ref: "#/components/schemas/UserUncheckedUpdateWithoutSessionsInput"
+    AccountCreateNestedManyWithoutUserInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/AccountCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountCreateWithoutUserInput"
+            - $ref: "#/components/schemas/AccountUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/AccountCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountCreateOrConnectWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/AccountCreateManyUserInputEnvelope"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/AccountWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountWhereUniqueInput"
+    SessionCreateNestedManyWithoutUserInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/SessionCreateManyUserInputEnvelope"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+    AccountUncheckedCreateNestedManyWithoutUserInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/AccountCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountCreateWithoutUserInput"
+            - $ref: "#/components/schemas/AccountUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/AccountCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountCreateOrConnectWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/AccountCreateManyUserInputEnvelope"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/AccountWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountWhereUniqueInput"
+    SessionUncheckedCreateNestedManyWithoutUserInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/SessionCreateManyUserInputEnvelope"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+    NullableDateTimeFieldUpdateOperationsInput:
+      type: object
+      properties:
+        set:
+          type: string
+          format: date-time
+    AccountUpdateManyWithoutUserNestedInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/AccountCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountCreateWithoutUserInput"
+            - $ref: "#/components/schemas/AccountUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/AccountCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountCreateOrConnectWithoutUserInput"
+        upsert:
+          oneOf:
+            - $ref: "#/components/schemas/AccountUpsertWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountUpsertWithWhereUniqueWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/AccountCreateManyUserInputEnvelope"
+        set:
+          oneOf:
+            - $ref: "#/components/schemas/AccountWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountWhereUniqueInput"
+        disconnect:
+          oneOf:
+            - $ref: "#/components/schemas/AccountWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountWhereUniqueInput"
+        delete:
+          oneOf:
+            - $ref: "#/components/schemas/AccountWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountWhereUniqueInput"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/AccountWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/AccountUpdateWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountUpdateWithWhereUniqueWithoutUserInput"
+        updateMany:
+          oneOf:
+            - $ref: "#/components/schemas/AccountUpdateManyWithWhereWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountUpdateManyWithWhereWithoutUserInput"
+        deleteMany:
+          oneOf:
+            - $ref: "#/components/schemas/AccountScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountScalarWhereInput"
+    SessionUpdateManyWithoutUserNestedInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+        upsert:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpsertWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUpsertWithWhereUniqueWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/SessionCreateManyUserInputEnvelope"
+        set:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        disconnect:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        delete:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpdateWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUpdateWithWhereUniqueWithoutUserInput"
+        updateMany:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpdateManyWithWhereWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUpdateManyWithWhereWithoutUserInput"
+        deleteMany:
+          oneOf:
+            - $ref: "#/components/schemas/SessionScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionScalarWhereInput"
+    AccountUncheckedUpdateManyWithoutUserNestedInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/AccountCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountCreateWithoutUserInput"
+            - $ref: "#/components/schemas/AccountUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/AccountCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountCreateOrConnectWithoutUserInput"
+        upsert:
+          oneOf:
+            - $ref: "#/components/schemas/AccountUpsertWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountUpsertWithWhereUniqueWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/AccountCreateManyUserInputEnvelope"
+        set:
+          oneOf:
+            - $ref: "#/components/schemas/AccountWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountWhereUniqueInput"
+        disconnect:
+          oneOf:
+            - $ref: "#/components/schemas/AccountWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountWhereUniqueInput"
+        delete:
+          oneOf:
+            - $ref: "#/components/schemas/AccountWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountWhereUniqueInput"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/AccountWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/AccountUpdateWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountUpdateWithWhereUniqueWithoutUserInput"
+        updateMany:
+          oneOf:
+            - $ref: "#/components/schemas/AccountUpdateManyWithWhereWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountUpdateManyWithWhereWithoutUserInput"
+        deleteMany:
+          oneOf:
+            - $ref: "#/components/schemas/AccountScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountScalarWhereInput"
+    SessionUncheckedUpdateManyWithoutUserNestedInput:
+      type: object
+      properties:
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+        connectOrCreate:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateOrConnectWithoutUserInput"
+        upsert:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpsertWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUpsertWithWhereUniqueWithoutUserInput"
+        createMany:
+          $ref: "#/components/schemas/SessionCreateManyUserInputEnvelope"
+        set:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        disconnect:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        delete:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        connect:
+          oneOf:
+            - $ref: "#/components/schemas/SessionWhereUniqueInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpdateWithWhereUniqueWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUpdateWithWhereUniqueWithoutUserInput"
+        updateMany:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpdateManyWithWhereWithoutUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionUpdateManyWithWhereWithoutUserInput"
+        deleteMany:
+          oneOf:
+            - $ref: "#/components/schemas/SessionScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionScalarWhereInput"
+    NestedStringFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+        in:
+          type: array
+          items:
+            type: string
+        notIn:
+          type: array
+          items:
+            type: string
+        lt:
+          type: string
+        lte:
+          type: string
+        gt:
+          type: string
+        gte:
+          type: string
+        contains:
+          type: string
+        startsWith:
+          type: string
+        endsWith:
+          type: string
+        not:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NestedStringFilter"
+    NestedStringWithAggregatesFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+        in:
+          type: array
+          items:
+            type: string
+        notIn:
+          type: array
+          items:
+            type: string
+        lt:
+          type: string
+        lte:
+          type: string
+        gt:
+          type: string
+        gte:
+          type: string
+        contains:
+          type: string
+        startsWith:
+          type: string
+        endsWith:
+          type: string
+        not:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NestedStringWithAggregatesFilter"
+        _count:
+          $ref: "#/components/schemas/NestedIntFilter"
+        _min:
+          $ref: "#/components/schemas/NestedStringFilter"
+        _max:
+          $ref: "#/components/schemas/NestedStringFilter"
+    NestedIntFilter:
+      type: object
+      properties:
+        equals:
+          type: integer
+        in:
+          type: array
+          items:
+            type: integer
+        notIn:
+          type: array
+          items:
+            type: integer
+        lt:
+          type: integer
+        lte:
+          type: integer
+        gt:
+          type: integer
+        gte:
+          type: integer
+        not:
+          oneOf:
+            - type: integer
+            - $ref: "#/components/schemas/NestedIntFilter"
+    NestedStringNullableFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+        in:
+          type: array
+          items:
+            type: string
+        notIn:
+          type: array
+          items:
+            type: string
+        lt:
+          type: string
+        lte:
+          type: string
+        gt:
+          type: string
+        gte:
+          type: string
+        contains:
+          type: string
+        startsWith:
+          type: string
+        endsWith:
+          type: string
+        not:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NestedStringNullableFilter"
+    NestedIntNullableFilter:
+      type: object
+      properties:
+        equals:
+          type: integer
+        in:
+          type: array
+          items:
+            type: integer
+        notIn:
+          type: array
+          items:
+            type: integer
+        lt:
+          type: integer
+        lte:
+          type: integer
+        gt:
+          type: integer
+        gte:
+          type: integer
+        not:
+          oneOf:
+            - type: integer
+            - $ref: "#/components/schemas/NestedIntNullableFilter"
+    NestedStringNullableWithAggregatesFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+        in:
+          type: array
+          items:
+            type: string
+        notIn:
+          type: array
+          items:
+            type: string
+        lt:
+          type: string
+        lte:
+          type: string
+        gt:
+          type: string
+        gte:
+          type: string
+        contains:
+          type: string
+        startsWith:
+          type: string
+        endsWith:
+          type: string
+        not:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NestedStringNullableWithAggregatesFilter"
+        _count:
+          $ref: "#/components/schemas/NestedIntNullableFilter"
+        _min:
+          $ref: "#/components/schemas/NestedStringNullableFilter"
+        _max:
+          $ref: "#/components/schemas/NestedStringNullableFilter"
+    NestedIntNullableWithAggregatesFilter:
+      type: object
+      properties:
+        equals:
+          type: integer
+        in:
+          type: array
+          items:
+            type: integer
+        notIn:
+          type: array
+          items:
+            type: integer
+        lt:
+          type: integer
+        lte:
+          type: integer
+        gt:
+          type: integer
+        gte:
+          type: integer
+        not:
+          oneOf:
+            - type: integer
+            - $ref: "#/components/schemas/NestedIntNullableWithAggregatesFilter"
+        _count:
+          $ref: "#/components/schemas/NestedIntNullableFilter"
+        _avg:
+          $ref: "#/components/schemas/NestedFloatNullableFilter"
+        _sum:
+          $ref: "#/components/schemas/NestedIntNullableFilter"
+        _min:
+          $ref: "#/components/schemas/NestedIntNullableFilter"
+        _max:
+          $ref: "#/components/schemas/NestedIntNullableFilter"
+    NestedFloatNullableFilter:
+      type: object
+      properties:
+        equals:
+          type: number
+        in:
+          type: array
+          items:
+            type: number
+        notIn:
+          type: array
+          items:
+            type: number
+        lt:
+          type: number
+        lte:
+          type: number
+        gt:
+          type: number
+        gte:
+          type: number
+        not:
+          oneOf:
+            - type: number
+            - $ref: "#/components/schemas/NestedFloatNullableFilter"
+    NestedDateTimeFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+          format: date-time
+        in:
+          type: array
+          items:
+            type: string
+            format: date-time
+        notIn:
+          type: array
+          items:
+            type: string
+            format: date-time
+        lt:
+          type: string
+          format: date-time
+        lte:
+          type: string
+          format: date-time
+        gt:
+          type: string
+          format: date-time
+        gte:
+          type: string
+          format: date-time
+        not:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NestedDateTimeFilter"
+    NestedDateTimeWithAggregatesFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+          format: date-time
+        in:
+          type: array
+          items:
+            type: string
+            format: date-time
+        notIn:
+          type: array
+          items:
+            type: string
+            format: date-time
+        lt:
+          type: string
+          format: date-time
+        lte:
+          type: string
+          format: date-time
+        gt:
+          type: string
+          format: date-time
+        gte:
+          type: string
+          format: date-time
+        not:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NestedDateTimeWithAggregatesFilter"
+        _count:
+          $ref: "#/components/schemas/NestedIntFilter"
+        _min:
+          $ref: "#/components/schemas/NestedDateTimeFilter"
+        _max:
+          $ref: "#/components/schemas/NestedDateTimeFilter"
+    NestedDateTimeNullableFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+          format: date-time
+        in:
+          type: array
+          items:
+            type: string
+            format: date-time
+        notIn:
+          type: array
+          items:
+            type: string
+            format: date-time
+        lt:
+          type: string
+          format: date-time
+        lte:
+          type: string
+          format: date-time
+        gt:
+          type: string
+          format: date-time
+        gte:
+          type: string
+          format: date-time
+        not:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NestedDateTimeNullableFilter"
+    NestedDateTimeNullableWithAggregatesFilter:
+      type: object
+      properties:
+        equals:
+          type: string
+          format: date-time
+        in:
+          type: array
+          items:
+            type: string
+            format: date-time
+        notIn:
+          type: array
+          items:
+            type: string
+            format: date-time
+        lt:
+          type: string
+          format: date-time
+        lte:
+          type: string
+          format: date-time
+        gt:
+          type: string
+          format: date-time
+        gte:
+          type: string
+          format: date-time
+        not:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NestedDateTimeNullableWithAggregatesFilter"
+        _count:
+          $ref: "#/components/schemas/NestedIntNullableFilter"
+        _min:
+          $ref: "#/components/schemas/NestedDateTimeNullableFilter"
+        _max:
+          $ref: "#/components/schemas/NestedDateTimeNullableFilter"
+    UserCreateWithoutAccountsInput:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        emailVerified:
+          type: string
+          format: date-time
+        image:
+          type: string
+        sessions:
+          $ref: "#/components/schemas/SessionCreateNestedManyWithoutUserInput"
+    UserUncheckedCreateWithoutAccountsInput:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        emailVerified:
+          type: string
+          format: date-time
+        image:
+          type: string
+        sessions:
+          $ref: "#/components/schemas/SessionUncheckedCreateNestedManyWithoutUserInput"
+    UserCreateOrConnectWithoutAccountsInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutAccountsInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutAccountsInput"
+      required:
+        - where
+        - create
+    UserUpsertWithoutAccountsInput:
+      type: object
+      properties:
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/UserUpdateWithoutAccountsInput"
+            - $ref: "#/components/schemas/UserUncheckedUpdateWithoutAccountsInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutAccountsInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutAccountsInput"
+      required:
+        - update
+        - create
+    UserUpdateWithoutAccountsInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        name:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        email:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        emailVerified:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NullableDateTimeFieldUpdateOperationsInput"
+        image:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        sessions:
+          $ref: "#/components/schemas/SessionUpdateManyWithoutUserNestedInput"
+    UserUncheckedUpdateWithoutAccountsInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        name:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        email:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        emailVerified:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NullableDateTimeFieldUpdateOperationsInput"
+        image:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        sessions:
+          $ref: "#/components/schemas/SessionUncheckedUpdateManyWithoutUserNestedInput"
+    UserCreateWithoutSessionsInput:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        emailVerified:
+          type: string
+          format: date-time
+        image:
+          type: string
+        accounts:
+          $ref: "#/components/schemas/AccountCreateNestedManyWithoutUserInput"
+    UserUncheckedCreateWithoutSessionsInput:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        emailVerified:
+          type: string
+          format: date-time
+        image:
+          type: string
+        accounts:
+          $ref: "#/components/schemas/AccountUncheckedCreateNestedManyWithoutUserInput"
+    UserCreateOrConnectWithoutSessionsInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutSessionsInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutSessionsInput"
+      required:
+        - where
+        - create
+    UserUpsertWithoutSessionsInput:
+      type: object
+      properties:
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/UserUpdateWithoutSessionsInput"
+            - $ref: "#/components/schemas/UserUncheckedUpdateWithoutSessionsInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/UserCreateWithoutSessionsInput"
+            - $ref: "#/components/schemas/UserUncheckedCreateWithoutSessionsInput"
+      required:
+        - update
+        - create
+    UserUpdateWithoutSessionsInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        name:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        email:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        emailVerified:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NullableDateTimeFieldUpdateOperationsInput"
+        image:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        accounts:
+          $ref: "#/components/schemas/AccountUpdateManyWithoutUserNestedInput"
+    UserUncheckedUpdateWithoutSessionsInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        name:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        email:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        emailVerified:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/NullableDateTimeFieldUpdateOperationsInput"
+        image:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        accounts:
+          $ref: "#/components/schemas/AccountUncheckedUpdateManyWithoutUserNestedInput"
+    AccountCreateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        provider:
+          type: string
+        providerAccountId:
+          type: string
+        refresh_token:
+          type: string
+        access_token:
+          type: string
+        expires_at:
+          type: integer
+        token_type:
+          type: string
+        scope:
+          type: string
+        id_token:
+          type: string
+        session_state:
+          type: string
+      required:
+        - type
+        - provider
+        - providerAccountId
+    AccountUncheckedCreateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        provider:
+          type: string
+        providerAccountId:
+          type: string
+        refresh_token:
+          type: string
+        access_token:
+          type: string
+        expires_at:
+          type: integer
+        token_type:
+          type: string
+        scope:
+          type: string
+        id_token:
+          type: string
+        session_state:
+          type: string
+      required:
+        - type
+        - provider
+        - providerAccountId
+    AccountCreateOrConnectWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/AccountWhereUniqueInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/AccountCreateWithoutUserInput"
+            - $ref: "#/components/schemas/AccountUncheckedCreateWithoutUserInput"
+      required:
+        - where
+        - create
+    AccountCreateManyUserInputEnvelope:
+      type: object
+      properties:
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/AccountCreateManyUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountCreateManyUserInput"
+        skipDuplicates:
+          type: boolean
+      required:
+        - data
+    SessionCreateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          type: string
+        sessionToken:
+          type: string
+        expires:
+          type: string
+          format: date-time
+      required:
+        - sessionToken
+        - expires
+    SessionUncheckedCreateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          type: string
+        sessionToken:
+          type: string
+        expires:
+          type: string
+          format: date-time
+      required:
+        - sessionToken
+        - expires
+    SessionCreateOrConnectWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+      required:
+        - where
+        - create
+    SessionCreateManyUserInputEnvelope:
+      type: object
+      properties:
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateManyUserInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionCreateManyUserInput"
+        skipDuplicates:
+          type: boolean
+      required:
+        - data
+    AccountUpsertWithWhereUniqueWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/AccountWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/AccountUpdateWithoutUserInput"
+            - $ref: "#/components/schemas/AccountUncheckedUpdateWithoutUserInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/AccountCreateWithoutUserInput"
+            - $ref: "#/components/schemas/AccountUncheckedCreateWithoutUserInput"
+      required:
+        - where
+        - update
+        - create
+    AccountUpdateWithWhereUniqueWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/AccountWhereUniqueInput"
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/AccountUpdateWithoutUserInput"
+            - $ref: "#/components/schemas/AccountUncheckedUpdateWithoutUserInput"
+      required:
+        - where
+        - data
+    AccountUpdateManyWithWhereWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/AccountScalarWhereInput"
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/AccountUpdateManyMutationInput"
+            - $ref: "#/components/schemas/AccountUncheckedUpdateManyWithoutAccountsInput"
+      required:
+        - where
+        - data
+    AccountScalarWhereInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/AccountScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountScalarWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/AccountScalarWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/AccountScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/AccountScalarWhereInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        userId:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        type:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        provider:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        providerAccountId:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        refresh_token:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+        access_token:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+        expires_at:
+          oneOf:
+            - $ref: "#/components/schemas/IntNullableFilter"
+            - type: integer
+        token_type:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+        scope:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+        id_token:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+        session_state:
+          oneOf:
+            - $ref: "#/components/schemas/StringNullableFilter"
+            - type: string
+    SessionUpsertWithWhereUniqueWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+        update:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpdateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedUpdateWithoutUserInput"
+        create:
+          oneOf:
+            - $ref: "#/components/schemas/SessionCreateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedCreateWithoutUserInput"
+      required:
+        - where
+        - update
+        - create
+    SessionUpdateWithWhereUniqueWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpdateWithoutUserInput"
+            - $ref: "#/components/schemas/SessionUncheckedUpdateWithoutUserInput"
+      required:
+        - where
+        - data
+    SessionUpdateManyWithWhereWithoutUserInput:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionScalarWhereInput"
+        data:
+          oneOf:
+            - $ref: "#/components/schemas/SessionUpdateManyMutationInput"
+            - $ref: "#/components/schemas/SessionUncheckedUpdateManyWithoutSessionsInput"
+      required:
+        - where
+        - data
+    SessionScalarWhereInput:
+      type: object
+      properties:
+        AND:
+          oneOf:
+            - $ref: "#/components/schemas/SessionScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionScalarWhereInput"
+        OR:
+          type: array
+          items:
+            $ref: "#/components/schemas/SessionScalarWhereInput"
+        NOT:
+          oneOf:
+            - $ref: "#/components/schemas/SessionScalarWhereInput"
+            - type: array
+              items:
+                $ref: "#/components/schemas/SessionScalarWhereInput"
+        id:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        sessionToken:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        userId:
+          oneOf:
+            - $ref: "#/components/schemas/StringFilter"
+            - type: string
+        expires:
+          oneOf:
+            - $ref: "#/components/schemas/DateTimeFilter"
+            - type: string
+              format: date-time
+    AccountCreateManyUserInput:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        provider:
+          type: string
+        providerAccountId:
+          type: string
+        refresh_token:
+          type: string
+        access_token:
+          type: string
+        expires_at:
+          type: integer
+        token_type:
+          type: string
+        scope:
+          type: string
+        id_token:
+          type: string
+        session_state:
+          type: string
+      required:
+        - type
+        - provider
+        - providerAccountId
+    SessionCreateManyUserInput:
+      type: object
+      properties:
+        id:
+          type: string
+        sessionToken:
+          type: string
+        expires:
+          type: string
+          format: date-time
+      required:
+        - sessionToken
+        - expires
+    AccountUpdateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        type:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        provider:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        providerAccountId:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        refresh_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        access_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        expires_at:
+          oneOf:
+            - type: integer
+            - $ref: "#/components/schemas/NullableIntFieldUpdateOperationsInput"
+        token_type:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        scope:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        id_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        session_state:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+    AccountUncheckedUpdateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        type:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        provider:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        providerAccountId:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        refresh_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        access_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        expires_at:
+          oneOf:
+            - type: integer
+            - $ref: "#/components/schemas/NullableIntFieldUpdateOperationsInput"
+        token_type:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        scope:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        id_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        session_state:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+    AccountUncheckedUpdateManyWithoutAccountsInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        type:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        provider:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        providerAccountId:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        refresh_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        access_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        expires_at:
+          oneOf:
+            - type: integer
+            - $ref: "#/components/schemas/NullableIntFieldUpdateOperationsInput"
+        token_type:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        scope:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        id_token:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+        session_state:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/NullableStringFieldUpdateOperationsInput"
+    SessionUpdateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        sessionToken:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        expires:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/DateTimeFieldUpdateOperationsInput"
+    SessionUncheckedUpdateWithoutUserInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        sessionToken:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        expires:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/DateTimeFieldUpdateOperationsInput"
+    SessionUncheckedUpdateManyWithoutSessionsInput:
+      type: object
+      properties:
+        id:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        sessionToken:
+          oneOf:
+            - type: string
+            - $ref: "#/components/schemas/StringFieldUpdateOperationsInput"
+        expires:
+          oneOf:
+            - type: string
+              format: date-time
+            - $ref: "#/components/schemas/DateTimeFieldUpdateOperationsInput"
+    UserArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+    AccountInclude:
+      type: object
+      properties:
+        user:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserArgs"
+    SessionInclude:
+      type: object
+      properties:
+        user:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserArgs"
+    UserInclude:
+      type: object
+      properties:
+        accounts:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/AccountFindManyArgs"
+        sessions:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/SessionFindManyArgs"
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserCountOutputTypeArgs"
+    UserCountOutputTypeSelect:
+      type: object
+      properties:
+        accounts:
+          type: boolean
+        sessions:
+          type: boolean
+    UserCountOutputTypeArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserCountOutputTypeSelect"
+    PostSelect:
+      type: object
+      properties:
+        id:
+          type: boolean
+        title:
+          type: boolean
+        content:
+          type: boolean
+    AccountSelect:
+      type: object
+      properties:
+        id:
+          type: boolean
+        userId:
+          type: boolean
+        type:
+          type: boolean
+        provider:
+          type: boolean
+        providerAccountId:
+          type: boolean
+        refresh_token:
+          type: boolean
+        access_token:
+          type: boolean
+        expires_at:
+          type: boolean
+        token_type:
+          type: boolean
+        scope:
+          type: boolean
+        id_token:
+          type: boolean
+        session_state:
+          type: boolean
+        user:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserArgs"
+    SessionSelect:
+      type: object
+      properties:
+        id:
+          type: boolean
+        sessionToken:
+          type: boolean
+        userId:
+          type: boolean
+        expires:
+          type: boolean
+        user:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserArgs"
+    UserSelect:
+      type: object
+      properties:
+        id:
+          type: boolean
+        name:
+          type: boolean
+        email:
+          type: boolean
+        emailVerified:
+          type: boolean
+        image:
+          type: boolean
+        accounts:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/AccountFindManyArgs"
+        sessions:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/SessionFindManyArgs"
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserCountOutputTypeArgs"
+    VerificationTokenSelect:
+      type: object
+      properties:
+        identifier:
+          type: boolean
+        token:
+          type: boolean
+        expires:
+          type: boolean
+    PostCountAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        title:
+          type: boolean
+        content:
+          type: boolean
+        _all:
+          type: boolean
+    PostMinAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        title:
+          type: boolean
+        content:
+          type: boolean
+    PostMaxAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        title:
+          type: boolean
+        content:
+          type: boolean
+    AccountCountAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        userId:
+          type: boolean
+        type:
+          type: boolean
+        provider:
+          type: boolean
+        providerAccountId:
+          type: boolean
+        refresh_token:
+          type: boolean
+        access_token:
+          type: boolean
+        expires_at:
+          type: boolean
+        token_type:
+          type: boolean
+        scope:
+          type: boolean
+        id_token:
+          type: boolean
+        session_state:
+          type: boolean
+        _all:
+          type: boolean
+    AccountAvgAggregateInput:
+      type: object
+      properties:
+        expires_at:
+          type: boolean
+    AccountSumAggregateInput:
+      type: object
+      properties:
+        expires_at:
+          type: boolean
+    AccountMinAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        userId:
+          type: boolean
+        type:
+          type: boolean
+        provider:
+          type: boolean
+        providerAccountId:
+          type: boolean
+        refresh_token:
+          type: boolean
+        access_token:
+          type: boolean
+        expires_at:
+          type: boolean
+        token_type:
+          type: boolean
+        scope:
+          type: boolean
+        id_token:
+          type: boolean
+        session_state:
+          type: boolean
+    AccountMaxAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        userId:
+          type: boolean
+        type:
+          type: boolean
+        provider:
+          type: boolean
+        providerAccountId:
+          type: boolean
+        refresh_token:
+          type: boolean
+        access_token:
+          type: boolean
+        expires_at:
+          type: boolean
+        token_type:
+          type: boolean
+        scope:
+          type: boolean
+        id_token:
+          type: boolean
+        session_state:
+          type: boolean
+    SessionCountAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        sessionToken:
+          type: boolean
+        userId:
+          type: boolean
+        expires:
+          type: boolean
+        _all:
+          type: boolean
+    SessionMinAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        sessionToken:
+          type: boolean
+        userId:
+          type: boolean
+        expires:
+          type: boolean
+    SessionMaxAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        sessionToken:
+          type: boolean
+        userId:
+          type: boolean
+        expires:
+          type: boolean
+    UserCountAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        name:
+          type: boolean
+        email:
+          type: boolean
+        emailVerified:
+          type: boolean
+        image:
+          type: boolean
+        _all:
+          type: boolean
+    UserMinAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        name:
+          type: boolean
+        email:
+          type: boolean
+        emailVerified:
+          type: boolean
+        image:
+          type: boolean
+    UserMaxAggregateInput:
+      type: object
+      properties:
+        id:
+          type: boolean
+        name:
+          type: boolean
+        email:
+          type: boolean
+        emailVerified:
+          type: boolean
+        image:
+          type: boolean
+    VerificationTokenCountAggregateInput:
+      type: object
+      properties:
+        identifier:
+          type: boolean
+        token:
+          type: boolean
+        expires:
+          type: boolean
+        _all:
+          type: boolean
+    VerificationTokenMinAggregateInput:
+      type: object
+      properties:
+        identifier:
+          type: boolean
+        token:
+          type: boolean
+        expires:
+          type: boolean
+    VerificationTokenMaxAggregateInput:
+      type: object
+      properties:
+        identifier:
+          type: boolean
+        token:
+          type: boolean
+        expires:
+          type: boolean
+    AggregatePost:
+      type: object
+      properties:
+        _count:
+          $ref: "#/components/schemas/PostCountAggregateOutputType"
+        _min:
+          $ref: "#/components/schemas/PostMinAggregateOutputType"
+        _max:
+          $ref: "#/components/schemas/PostMaxAggregateOutputType"
+    PostGroupByOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        _count:
+          $ref: "#/components/schemas/PostCountAggregateOutputType"
+        _min:
+          $ref: "#/components/schemas/PostMinAggregateOutputType"
+        _max:
+          $ref: "#/components/schemas/PostMaxAggregateOutputType"
+      required:
+        - id
+        - title
+        - content
+    AggregateAccount:
+      type: object
+      properties:
+        _count:
+          $ref: "#/components/schemas/AccountCountAggregateOutputType"
+        _avg:
+          $ref: "#/components/schemas/AccountAvgAggregateOutputType"
+        _sum:
+          $ref: "#/components/schemas/AccountSumAggregateOutputType"
+        _min:
+          $ref: "#/components/schemas/AccountMinAggregateOutputType"
+        _max:
+          $ref: "#/components/schemas/AccountMaxAggregateOutputType"
+    AccountGroupByOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        type:
+          type: string
+        provider:
+          type: string
+        providerAccountId:
+          type: string
+        refresh_token:
+          type: string
+        access_token:
+          type: string
+        expires_at:
+          type: integer
+        token_type:
+          type: string
+        scope:
+          type: string
+        id_token:
+          type: string
+        session_state:
+          type: string
+        _count:
+          $ref: "#/components/schemas/AccountCountAggregateOutputType"
+        _avg:
+          $ref: "#/components/schemas/AccountAvgAggregateOutputType"
+        _sum:
+          $ref: "#/components/schemas/AccountSumAggregateOutputType"
+        _min:
+          $ref: "#/components/schemas/AccountMinAggregateOutputType"
+        _max:
+          $ref: "#/components/schemas/AccountMaxAggregateOutputType"
+      required:
+        - id
+        - userId
+        - type
+        - provider
+        - providerAccountId
+    AggregateSession:
+      type: object
+      properties:
+        _count:
+          $ref: "#/components/schemas/SessionCountAggregateOutputType"
+        _min:
+          $ref: "#/components/schemas/SessionMinAggregateOutputType"
+        _max:
+          $ref: "#/components/schemas/SessionMaxAggregateOutputType"
+    SessionGroupByOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        sessionToken:
+          type: string
+        userId:
+          type: string
+        expires:
+          type: string
+          format: date-time
+        _count:
+          $ref: "#/components/schemas/SessionCountAggregateOutputType"
+        _min:
+          $ref: "#/components/schemas/SessionMinAggregateOutputType"
+        _max:
+          $ref: "#/components/schemas/SessionMaxAggregateOutputType"
+      required:
+        - id
+        - sessionToken
+        - userId
+        - expires
+    AggregateUser:
+      type: object
+      properties:
+        _count:
+          $ref: "#/components/schemas/UserCountAggregateOutputType"
+        _min:
+          $ref: "#/components/schemas/UserMinAggregateOutputType"
+        _max:
+          $ref: "#/components/schemas/UserMaxAggregateOutputType"
+    UserGroupByOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        emailVerified:
+          type: string
+          format: date-time
+        image:
+          type: string
+        _count:
+          $ref: "#/components/schemas/UserCountAggregateOutputType"
+        _min:
+          $ref: "#/components/schemas/UserMinAggregateOutputType"
+        _max:
+          $ref: "#/components/schemas/UserMaxAggregateOutputType"
+      required:
+        - id
+    AggregateVerificationToken:
+      type: object
+      properties:
+        _count:
+          $ref: "#/components/schemas/VerificationTokenCountAggregateOutputType"
+        _min:
+          $ref: "#/components/schemas/VerificationTokenMinAggregateOutputType"
+        _max:
+          $ref: "#/components/schemas/VerificationTokenMaxAggregateOutputType"
+    VerificationTokenGroupByOutputType:
+      type: object
+      properties:
+        identifier:
+          type: string
+        token:
+          type: string
+        expires:
+          type: string
+          format: date-time
+        _count:
+          $ref: "#/components/schemas/VerificationTokenCountAggregateOutputType"
+        _min:
+          $ref: "#/components/schemas/VerificationTokenMinAggregateOutputType"
+        _max:
+          $ref: "#/components/schemas/VerificationTokenMaxAggregateOutputType"
+      required:
+        - identifier
+        - token
+        - expires
+    PostCountAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: integer
+        content:
+          type: integer
+        _all:
+          type: integer
+      required:
+        - id
+        - title
+        - content
+        - _all
+    PostMinAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+    PostMaxAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+    AccountCountAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        type:
+          type: integer
+        provider:
+          type: integer
+        providerAccountId:
+          type: integer
+        refresh_token:
+          type: integer
+        access_token:
+          type: integer
+        expires_at:
+          type: integer
+        token_type:
+          type: integer
+        scope:
+          type: integer
+        id_token:
+          type: integer
+        session_state:
+          type: integer
+        _all:
+          type: integer
+      required:
+        - id
+        - userId
+        - type
+        - provider
+        - providerAccountId
+        - refresh_token
+        - access_token
+        - expires_at
+        - token_type
+        - scope
+        - id_token
+        - session_state
+        - _all
+    AccountAvgAggregateOutputType:
+      type: object
+      properties:
+        expires_at:
+          type: number
+    AccountSumAggregateOutputType:
+      type: object
+      properties:
+        expires_at:
+          type: integer
+    AccountMinAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        type:
+          type: string
+        provider:
+          type: string
+        providerAccountId:
+          type: string
+        refresh_token:
+          type: string
+        access_token:
+          type: string
+        expires_at:
+          type: integer
+        token_type:
+          type: string
+        scope:
+          type: string
+        id_token:
+          type: string
+        session_state:
+          type: string
+    AccountMaxAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        type:
+          type: string
+        provider:
+          type: string
+        providerAccountId:
+          type: string
+        refresh_token:
+          type: string
+        access_token:
+          type: string
+        expires_at:
+          type: integer
+        token_type:
+          type: string
+        scope:
+          type: string
+        id_token:
+          type: string
+        session_state:
+          type: string
+    SessionCountAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: integer
+        sessionToken:
+          type: integer
+        userId:
+          type: integer
+        expires:
+          type: integer
+        _all:
+          type: integer
+      required:
+        - id
+        - sessionToken
+        - userId
+        - expires
+        - _all
+    SessionMinAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        sessionToken:
+          type: string
+        userId:
+          type: string
+        expires:
+          type: string
+          format: date-time
+    SessionMaxAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        sessionToken:
+          type: string
+        userId:
+          type: string
+        expires:
+          type: string
+          format: date-time
+    UserCountAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: integer
+        email:
+          type: integer
+        emailVerified:
+          type: integer
+        image:
+          type: integer
+        _all:
+          type: integer
+      required:
+        - id
+        - name
+        - email
+        - emailVerified
+        - image
+        - _all
+    UserMinAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        emailVerified:
+          type: string
+          format: date-time
+        image:
+          type: string
+    UserMaxAggregateOutputType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        emailVerified:
+          type: string
+          format: date-time
+        image:
+          type: string
+    VerificationTokenCountAggregateOutputType:
+      type: object
+      properties:
+        identifier:
+          type: integer
+        token:
+          type: integer
+        expires:
+          type: integer
+        _all:
+          type: integer
+      required:
+        - identifier
+        - token
+        - expires
+        - _all
+    VerificationTokenMinAggregateOutputType:
+      type: object
+      properties:
+        identifier:
+          type: string
+        token:
+          type: string
+        expires:
+          type: string
+          format: date-time
+    VerificationTokenMaxAggregateOutputType:
+      type: object
+      properties:
+        identifier:
+          type: string
+        token:
+          type: string
+        expires:
+          type: string
+          format: date-time
+    BatchPayload:
+      type: object
+      properties:
+        count:
+          type: integer
+    PostCreateArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        data:
+          $ref: "#/components/schemas/PostCreateInput"
+    PostCreateManyArgs:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/PostCreateManyInput"
+    PostFindUniqueArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        where:
+          $ref: "#/components/schemas/PostWhereUniqueInput"
+    PostFindFirstArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        where:
+          $ref: "#/components/schemas/PostWhereInput"
+    PostFindManyArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        where:
+          $ref: "#/components/schemas/PostWhereInput"
+    PostUpdateArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        where:
+          $ref: "#/components/schemas/PostWhereUniqueInput"
+        data:
+          $ref: "#/components/schemas/PostUpdateInput"
+    PostUpdateManyArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/PostWhereInput"
+        data:
+          $ref: "#/components/schemas/PostUpdateManyMutationInput"
+    PostUpsertArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        where:
+          $ref: "#/components/schemas/PostWhereUniqueInput"
+        create:
+          $ref: "#/components/schemas/PostCreateInput"
+        update:
+          $ref: "#/components/schemas/PostUpdateInput"
+    PostDeleteUniqueArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        where:
+          $ref: "#/components/schemas/PostWhereUniqueInput"
+    PostDeleteManyArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/PostWhereInput"
+    PostCountArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/PostSelect"
+        where:
+          $ref: "#/components/schemas/PostWhereInput"
+    PostAggregateArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/PostWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/PostOrderByWithRelationInput"
+        cursor:
+          $ref: "#/components/schemas/PostWhereUniqueInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/PostCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/PostMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/PostMaxAggregateInput"
+    PostGroupByArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/PostWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/PostOrderByWithRelationInput"
+        by:
+          $ref: "#/components/schemas/PostScalarFieldEnum"
+        having:
+          $ref: "#/components/schemas/PostScalarWhereWithAggregatesInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/PostCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/PostMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/PostMaxAggregateInput"
+    AccountCreateArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/AccountSelect"
+        include:
+          $ref: "#/components/schemas/AccountInclude"
+        data:
+          $ref: "#/components/schemas/AccountCreateInput"
+    AccountCreateManyArgs:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/AccountCreateManyInput"
+    AccountFindUniqueArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/AccountSelect"
+        include:
+          $ref: "#/components/schemas/AccountInclude"
+        where:
+          $ref: "#/components/schemas/AccountWhereUniqueInput"
+    AccountFindFirstArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/AccountSelect"
+        include:
+          $ref: "#/components/schemas/AccountInclude"
+        where:
+          $ref: "#/components/schemas/AccountWhereInput"
+    AccountFindManyArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/AccountSelect"
+        include:
+          $ref: "#/components/schemas/AccountInclude"
+        where:
+          $ref: "#/components/schemas/AccountWhereInput"
+    AccountUpdateArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/AccountSelect"
+        include:
+          $ref: "#/components/schemas/AccountInclude"
+        where:
+          $ref: "#/components/schemas/AccountWhereUniqueInput"
+        data:
+          $ref: "#/components/schemas/AccountUpdateInput"
+    AccountUpdateManyArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/AccountWhereInput"
+        data:
+          $ref: "#/components/schemas/AccountUpdateManyMutationInput"
+    AccountUpsertArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/AccountSelect"
+        include:
+          $ref: "#/components/schemas/AccountInclude"
+        where:
+          $ref: "#/components/schemas/AccountWhereUniqueInput"
+        create:
+          $ref: "#/components/schemas/AccountCreateInput"
+        update:
+          $ref: "#/components/schemas/AccountUpdateInput"
+    AccountDeleteUniqueArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/AccountSelect"
+        include:
+          $ref: "#/components/schemas/AccountInclude"
+        where:
+          $ref: "#/components/schemas/AccountWhereUniqueInput"
+    AccountDeleteManyArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/AccountWhereInput"
+    AccountCountArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/AccountSelect"
+        where:
+          $ref: "#/components/schemas/AccountWhereInput"
+    AccountAggregateArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/AccountWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/AccountOrderByWithRelationInput"
+        cursor:
+          $ref: "#/components/schemas/AccountWhereUniqueInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/AccountCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/AccountMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/AccountMaxAggregateInput"
+        _sum:
+          $ref: "#/components/schemas/AccountSumAggregateInput"
+        _avg:
+          $ref: "#/components/schemas/AccountAvgAggregateInput"
+    AccountGroupByArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/AccountWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/AccountOrderByWithRelationInput"
+        by:
+          $ref: "#/components/schemas/AccountScalarFieldEnum"
+        having:
+          $ref: "#/components/schemas/AccountScalarWhereWithAggregatesInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/AccountCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/AccountMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/AccountMaxAggregateInput"
+        _sum:
+          $ref: "#/components/schemas/AccountSumAggregateInput"
+        _avg:
+          $ref: "#/components/schemas/AccountAvgAggregateInput"
+    SessionCreateArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        include:
+          $ref: "#/components/schemas/SessionInclude"
+        data:
+          $ref: "#/components/schemas/SessionCreateInput"
+    SessionCreateManyArgs:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/SessionCreateManyInput"
+    SessionFindUniqueArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        include:
+          $ref: "#/components/schemas/SessionInclude"
+        where:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+    SessionFindFirstArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        include:
+          $ref: "#/components/schemas/SessionInclude"
+        where:
+          $ref: "#/components/schemas/SessionWhereInput"
+    SessionFindManyArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        include:
+          $ref: "#/components/schemas/SessionInclude"
+        where:
+          $ref: "#/components/schemas/SessionWhereInput"
+    SessionUpdateArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        include:
+          $ref: "#/components/schemas/SessionInclude"
+        where:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+        data:
+          $ref: "#/components/schemas/SessionUpdateInput"
+    SessionUpdateManyArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionWhereInput"
+        data:
+          $ref: "#/components/schemas/SessionUpdateManyMutationInput"
+    SessionUpsertArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        include:
+          $ref: "#/components/schemas/SessionInclude"
+        where:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+        create:
+          $ref: "#/components/schemas/SessionCreateInput"
+        update:
+          $ref: "#/components/schemas/SessionUpdateInput"
+    SessionDeleteUniqueArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        include:
+          $ref: "#/components/schemas/SessionInclude"
+        where:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+    SessionDeleteManyArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionWhereInput"
+    SessionCountArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/SessionSelect"
+        where:
+          $ref: "#/components/schemas/SessionWhereInput"
+    SessionAggregateArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/SessionOrderByWithRelationInput"
+        cursor:
+          $ref: "#/components/schemas/SessionWhereUniqueInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/SessionCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/SessionMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/SessionMaxAggregateInput"
+    SessionGroupByArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/SessionWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/SessionOrderByWithRelationInput"
+        by:
+          $ref: "#/components/schemas/SessionScalarFieldEnum"
+        having:
+          $ref: "#/components/schemas/SessionScalarWhereWithAggregatesInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/SessionCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/SessionMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/SessionMaxAggregateInput"
+    UserCreateArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+        data:
+          $ref: "#/components/schemas/UserCreateInput"
+    UserCreateManyArgs:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/UserCreateManyInput"
+    UserFindUniqueArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+        where:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+    UserFindFirstArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+    UserFindManyArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+    UserUpdateArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+        where:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        data:
+          $ref: "#/components/schemas/UserUpdateInput"
+    UserUpdateManyArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+        data:
+          $ref: "#/components/schemas/UserUpdateManyMutationInput"
+    UserUpsertArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+        where:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        create:
+          $ref: "#/components/schemas/UserCreateInput"
+        update:
+          $ref: "#/components/schemas/UserUpdateInput"
+    UserDeleteUniqueArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        include:
+          $ref: "#/components/schemas/UserInclude"
+        where:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+    UserDeleteManyArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+    UserCountArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/UserSelect"
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+    UserAggregateArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/UserOrderByWithRelationInput"
+        cursor:
+          $ref: "#/components/schemas/UserWhereUniqueInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/UserMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/UserMaxAggregateInput"
+    UserGroupByArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/UserWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/UserOrderByWithRelationInput"
+        by:
+          $ref: "#/components/schemas/UserScalarFieldEnum"
+        having:
+          $ref: "#/components/schemas/UserScalarWhereWithAggregatesInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/UserCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/UserMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/UserMaxAggregateInput"
+    VerificationTokenCreateArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/VerificationTokenSelect"
+        data:
+          $ref: "#/components/schemas/VerificationTokenCreateInput"
+    VerificationTokenCreateManyArgs:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/VerificationTokenCreateManyInput"
+    VerificationTokenFindUniqueArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/VerificationTokenSelect"
+        where:
+          $ref: "#/components/schemas/VerificationTokenWhereUniqueInput"
+    VerificationTokenFindFirstArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/VerificationTokenSelect"
+        where:
+          $ref: "#/components/schemas/VerificationTokenWhereInput"
+    VerificationTokenFindManyArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/VerificationTokenSelect"
+        where:
+          $ref: "#/components/schemas/VerificationTokenWhereInput"
+    VerificationTokenUpdateArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/VerificationTokenSelect"
+        where:
+          $ref: "#/components/schemas/VerificationTokenWhereUniqueInput"
+        data:
+          $ref: "#/components/schemas/VerificationTokenUpdateInput"
+    VerificationTokenUpdateManyArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/VerificationTokenWhereInput"
+        data:
+          $ref: "#/components/schemas/VerificationTokenUpdateManyMutationInput"
+    VerificationTokenUpsertArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/VerificationTokenSelect"
+        where:
+          $ref: "#/components/schemas/VerificationTokenWhereUniqueInput"
+        create:
+          $ref: "#/components/schemas/VerificationTokenCreateInput"
+        update:
+          $ref: "#/components/schemas/VerificationTokenUpdateInput"
+    VerificationTokenDeleteUniqueArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/VerificationTokenSelect"
+        where:
+          $ref: "#/components/schemas/VerificationTokenWhereUniqueInput"
+    VerificationTokenDeleteManyArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/VerificationTokenWhereInput"
+    VerificationTokenCountArgs:
+      type: object
+      properties:
+        select:
+          $ref: "#/components/schemas/VerificationTokenSelect"
+        where:
+          $ref: "#/components/schemas/VerificationTokenWhereInput"
+    VerificationTokenAggregateArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/VerificationTokenWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/VerificationTokenOrderByWithRelationInput"
+        cursor:
+          $ref: "#/components/schemas/VerificationTokenWhereUniqueInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/VerificationTokenCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/VerificationTokenMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/VerificationTokenMaxAggregateInput"
+    VerificationTokenGroupByArgs:
+      type: object
+      properties:
+        where:
+          $ref: "#/components/schemas/VerificationTokenWhereInput"
+        orderBy:
+          $ref: "#/components/schemas/VerificationTokenOrderByWithRelationInput"
+        by:
+          $ref: "#/components/schemas/VerificationTokenScalarFieldEnum"
+        having:
+          $ref: "#/components/schemas/VerificationTokenScalarWhereWithAggregatesInput"
+        take:
+          type: integer
+        skip:
+          type: integer
+        _count:
+          oneOf:
+            - type: boolean
+            - $ref: "#/components/schemas/VerificationTokenCountAggregateInput"
+        _min:
+          $ref: "#/components/schemas/VerificationTokenMinAggregateInput"
+        _max:
+          $ref: "#/components/schemas/VerificationTokenMaxAggregateInput"
+paths:
+  /api/post/create:
+    post:
+      operationId: createPost
+      description: Create a new Post
+      tags:
+        - post
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCreateArgs"
+  /api/post/createMany:
+    post:
+      operationId: createManyPost
+      description: Create several Post
+      tags:
+        - post
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCreateManyArgs"
+  /api/post/findUnique:
+    get:
+      operationId: findUniquePost
+      description: Find one unique Post
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostFindUniqueArgs"
+  /api/post/findFirst:
+    get:
+      operationId: findFirstPost
+      description: Find the first Post matching the given condition
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostFindFirstArgs"
+  /api/post/findMany:
+    get:
+      operationId: findManyPost
+      description: Find a list of Post
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Post"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostFindManyArgs"
+  /api/post/update:
+    patch:
+      operationId: updatePost
+      description: Update a Post
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostUpdateArgs"
+  /api/post/updateMany:
+    patch:
+      operationId: updateManyPost
+      description: Update Posts matching the given condition
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostUpdateManyArgs"
+  /api/post/upsert:
+    post:
+      operationId: upsertPost
+      description: Upsert a Post
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostUpsertArgs"
+  /api/post/delete:
+    delete:
+      operationId: deletePost
+      description: Delete one unique Post
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostDeleteUniqueArgs"
+  /api/post/deleteMany:
+    delete:
+      operationId: deleteManyPost
+      description: Delete Posts matching the given condition
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostDeleteManyArgs"
+  /api/post/count:
+    get:
+      operationId: countPost
+      description: Find a list of Post
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: integer
+                  - $ref: "#/components/schemas/PostCountAggregateOutputType"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostCountArgs"
+  /api/post/aggregate:
+    get:
+      operationId: aggregatePost
+      description: Aggregate Posts
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AggregatePost"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostAggregateArgs"
+  /api/post/groupBy:
+    get:
+      operationId: groupByPost
+      description: Group Posts by fields
+      tags:
+        - post
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PostGroupByOutputType"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostGroupByArgs"
+  /api/account/create:
+    post:
+      operationId: createAccount
+      description: Create a new Account
+      tags:
+        - account
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountCreateArgs"
+  /api/account/createMany:
+    post:
+      operationId: createManyAccount
+      description: Create several Account
+      tags:
+        - account
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountCreateManyArgs"
+  /api/account/findUnique:
+    get:
+      operationId: findUniqueAccount
+      description: Find one unique Account
+      tags:
+        - account
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountFindUniqueArgs"
+  /api/account/findFirst:
+    get:
+      operationId: findFirstAccount
+      description: Find the first Account matching the given condition
+      tags:
+        - account
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountFindFirstArgs"
+  /api/account/findMany:
+    get:
+      operationId: findManyAccount
+      description: Find a list of Account
+      tags:
+        - account
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Account"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountFindManyArgs"
+  /api/account/update:
+    patch:
+      operationId: updateAccount
+      description: Update a Account
+      tags:
+        - account
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountUpdateArgs"
+  /api/account/updateMany:
+    patch:
+      operationId: updateManyAccount
+      description: Update Accounts matching the given condition
+      tags:
+        - account
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountUpdateManyArgs"
+  /api/account/upsert:
+    post:
+      operationId: upsertAccount
+      description: Upsert a Account
+      tags:
+        - account
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountUpsertArgs"
+  /api/account/delete:
+    delete:
+      operationId: deleteAccount
+      description: Delete one unique Account
+      tags:
+        - account
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountDeleteUniqueArgs"
+  /api/account/deleteMany:
+    delete:
+      operationId: deleteManyAccount
+      description: Delete Accounts matching the given condition
+      tags:
+        - account
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountDeleteManyArgs"
+  /api/account/count:
+    get:
+      operationId: countAccount
+      description: Find a list of Account
+      tags:
+        - account
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: integer
+                  - $ref: "#/components/schemas/AccountCountAggregateOutputType"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountCountArgs"
+  /api/account/aggregate:
+    get:
+      operationId: aggregateAccount
+      description: Aggregate Accounts
+      tags:
+        - account
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AggregateAccount"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountAggregateArgs"
+  /api/account/groupBy:
+    get:
+      operationId: groupByAccount
+      description: Group Accounts by fields
+      tags:
+        - account
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AccountGroupByOutputType"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountGroupByArgs"
+  /api/session/create:
+    post:
+      operationId: createSession
+      description: Create a new Session
+      tags:
+        - session
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Session"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SessionCreateArgs"
+  /api/session/createMany:
+    post:
+      operationId: createManySession
+      description: Create several Session
+      tags:
+        - session
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SessionCreateManyArgs"
+  /api/session/findUnique:
+    get:
+      operationId: findUniqueSession
+      description: Find one unique Session
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Session"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionFindUniqueArgs"
+  /api/session/findFirst:
+    get:
+      operationId: findFirstSession
+      description: Find the first Session matching the given condition
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Session"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionFindFirstArgs"
+  /api/session/findMany:
+    get:
+      operationId: findManySession
+      description: Find a list of Session
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Session"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionFindManyArgs"
+  /api/session/update:
+    patch:
+      operationId: updateSession
+      description: Update a Session
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Session"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SessionUpdateArgs"
+  /api/session/updateMany:
+    patch:
+      operationId: updateManySession
+      description: Update Sessions matching the given condition
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SessionUpdateManyArgs"
+  /api/session/upsert:
+    post:
+      operationId: upsertSession
+      description: Upsert a Session
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Session"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SessionUpsertArgs"
+  /api/session/delete:
+    delete:
+      operationId: deleteSession
+      description: Delete one unique Session
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Session"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionDeleteUniqueArgs"
+  /api/session/deleteMany:
+    delete:
+      operationId: deleteManySession
+      description: Delete Sessions matching the given condition
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionDeleteManyArgs"
+  /api/session/count:
+    get:
+      operationId: countSession
+      description: Find a list of Session
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: integer
+                  - $ref: "#/components/schemas/SessionCountAggregateOutputType"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionCountArgs"
+  /api/session/aggregate:
+    get:
+      operationId: aggregateSession
+      description: Aggregate Sessions
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AggregateSession"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionAggregateArgs"
+  /api/session/groupBy:
+    get:
+      operationId: groupBySession
+      description: Group Sessions by fields
+      tags:
+        - session
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SessionGroupByOutputType"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SessionGroupByArgs"
+  /api/user/create:
+    post:
+      operationId: createUser
+      description: Create a new User
+      tags:
+        - user
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateArgs"
+  /api/user/createMany:
+    post:
+      operationId: createManyUser
+      description: Create several User
+      tags:
+        - user
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateManyArgs"
+  /api/user/findUnique:
+    get:
+      operationId: findUniqueUser
+      description: Find one unique User
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserFindUniqueArgs"
+  /api/user/findFirst:
+    get:
+      operationId: findFirstUser
+      description: Find the first User matching the given condition
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserFindFirstArgs"
+  /api/user/findMany:
+    get:
+      operationId: findManyUser
+      description: Find users matching the given conditions
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserFindManyArgs"
+  /api/user/update:
+    patch:
+      operationId: updateUser
+      description: Update a User
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdateArgs"
+  /api/user/updateMany:
+    patch:
+      operationId: updateManyUser
+      description: Update Users matching the given condition
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdateManyArgs"
+  /api/user/upsert:
+    post:
+      operationId: upsertUser
+      description: Upsert a User
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpsertArgs"
+  /api/user/dodelete:
+    put:
+      operationId: deleteUser
+      description: Delete a unique user
+      tags:
+        - delete
+        - user
+      summary: Delete a user yeah yeah
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserDeleteUniqueArgs"
+  /api/user/deleteMany:
+    delete:
+      operationId: deleteManyUser
+      description: Delete Users matching the given condition
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDeleteManyArgs"
+  /api/user/count:
+    get:
+      operationId: countUser
+      description: Find a list of User
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: integer
+                  - $ref: "#/components/schemas/UserCountAggregateOutputType"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserCountArgs"
+  /api/user/aggregate:
+    get:
+      operationId: aggregateUser
+      description: Aggregate Users
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AggregateUser"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserAggregateArgs"
+  /api/user/groupBy:
+    get:
+      operationId: groupByUser
+      description: Group Users by fields
+      tags:
+        - user
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserGroupByOutputType"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserGroupByArgs"
+  /api/verificationToken/create:
+    post:
+      operationId: createVerificationToken
+      description: Create a new VerificationToken
+      tags:
+        - verificationToken
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificationToken"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerificationTokenCreateArgs"
+  /api/verificationToken/createMany:
+    post:
+      operationId: createManyVerificationToken
+      description: Create several VerificationToken
+      tags:
+        - verificationToken
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerificationTokenCreateManyArgs"
+  /api/verificationToken/findUnique:
+    get:
+      operationId: findUniqueVerificationToken
+      description: Find one unique VerificationToken
+      tags:
+        - verificationToken
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificationToken"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificationTokenFindUniqueArgs"
+  /api/verificationToken/findFirst:
+    get:
+      operationId: findFirstVerificationToken
+      description: Find the first VerificationToken matching the given condition
+      tags:
+        - verificationToken
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificationToken"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificationTokenFindFirstArgs"
+  /api/verificationToken/findMany:
+    get:
+      operationId: findManyVerificationToken
+      description: Find a list of VerificationToken
+      tags:
+        - verificationToken
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/VerificationToken"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificationTokenFindManyArgs"
+  /api/verificationToken/update:
+    patch:
+      operationId: updateVerificationToken
+      description: Update a VerificationToken
+      tags:
+        - verificationToken
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificationToken"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerificationTokenUpdateArgs"
+  /api/verificationToken/updateMany:
+    patch:
+      operationId: updateManyVerificationToken
+      description: Update VerificationTokens matching the given condition
+      tags:
+        - verificationToken
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerificationTokenUpdateManyArgs"
+  /api/verificationToken/upsert:
+    post:
+      operationId: upsertVerificationToken
+      description: Upsert a VerificationToken
+      tags:
+        - verificationToken
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificationToken"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerificationTokenUpsertArgs"
+  /api/verificationToken/delete:
+    delete:
+      operationId: deleteVerificationToken
+      description: Delete one unique VerificationToken
+      tags:
+        - verificationToken
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificationToken"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificationTokenDeleteUniqueArgs"
+  /api/verificationToken/deleteMany:
+    delete:
+      operationId: deleteManyVerificationToken
+      description: Delete VerificationTokens matching the given condition
+      tags:
+        - verificationToken
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchPayload"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificationTokenDeleteManyArgs"
+  /api/verificationToken/count:
+    get:
+      operationId: countVerificationToken
+      description: Find a list of VerificationToken
+      tags:
+        - verificationToken
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: integer
+                  - $ref: "#/components/schemas/VerificationTokenCountAggregateOutputType"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificationTokenCountArgs"
+  /api/verificationToken/aggregate:
+    get:
+      operationId: aggregateVerificationToken
+      description: Aggregate VerificationTokens
+      tags:
+        - verificationToken
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AggregateVerificationToken"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificationTokenAggregateArgs"
+  /api/verificationToken/groupBy:
+    get:
+      operationId: groupByVerificationToken
+      description: Group VerificationTokens by fields
+      tags:
+        - verificationToken
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/VerificationTokenGroupByOutputType"
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden
+      parameters:
+        - name: q
+          in: query
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificationTokenGroupByArgs"
